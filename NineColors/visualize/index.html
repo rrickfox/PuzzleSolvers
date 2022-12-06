@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Nine Colors</title>                                            
+  <script src="visualize.js"></script>
+  <script src="solutions_0.js"></script>
+  <script src="solutions_2.js"></script>
+  <style>
+    #bottom, #middle, #top {
+      height: 150px;
+      width: 150px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap-reverse;
+    }
+    #D0, #D1, #D2, #D3, #D4, #D5, #D6, #D7, #D8, #D9, #D10, #D11, #D12, #D13, #D14, #D15, #D16, #D17, #D18, #D19, #D20, #D21, #D22, #D23, #D24, #D25, #D26 {
+      height: 50px;
+      width: 50px;
+      box-sizing:border-box;
+    } 
+  </style>
+  </head>
+  <body>                                   
+    <div style="display:flex;flex-direction:row;justify-content:space-between;width:50%;margin:0 auto" id="output">
+      <div id="bottom">
+        <div id="D0">
+        </div>
+        <div id="D1">
+        </div>
+        <div id="D2">
+        </div>
+        <div id="D3">
+        </div>
+        <div id="D4">
+        </div>
+        <div id="D5">
+        </div>
+        <div id="D6">
+        </div>
+        <div id="D7">
+        </div>
+        <div id="D8">
+        </div>
+      </div>
+      <div id="middle">
+        <div id="D9">
+        </div>
+        <div id="D10">
+        </div>
+        <div id="D11">
+        </div>
+        <div id="D12">
+        </div>
+        <div id="D13">
+        </div>
+        <div id="D14">
+        </div>
+        <div id="D15">
+        </div>
+        <div id="D16">
+        </div>
+        <div id="D17">
+        </div>
+      </div>
+      <div id="top">
+        <div id="D18">
+        </div>
+        <div id="D19">
+        </div>
+        <div id="D20">
+        </div>
+        <div id="D21">
+        </div>
+        <div id="D22">
+        </div>
+        <div id="D23">
+        </div>
+        <div id="D24">
+        </div>
+        <div id="D25">
+        </div>
+        <div id="D26">
+        </div>
+      </div>
+    </div>
+    <label for="mode">Mode:</label> <input id="mode" type="number" value="0" step="2" min="0" max="2">
+    <label for="index">Lösungsnummer:</label> <input id="index" type="number" min="0" max="364" value="0">
+    <button id="calculate">Berechnen</button>
+    <script>
+      function calculate() {
+        var mode = parseInt(document.getElementById("mode").value);
+        //console.log("mode: " + mode);
+        var array = load_json(mode);   
+        var output = document.getElementById("output");
+        var index = parseInt(document.getElementById("index").value);
+        //console.log("index: " + index);
+        var node = JSON.parse(JSON.stringify(array[index]));
+        //console.log("node:");
+        //console.log(JSON.stringify(node));
+        visualize(node, mode, output);
+      }
+      document.getElementById("calculate").addEventListener("click", calculate);
+      calculate();
+    </script>
+  </body>
+</html>
