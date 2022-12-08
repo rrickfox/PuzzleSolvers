@@ -1,14 +1,16 @@
 ﻿using Data;
 using Newtonsoft.Json;
 
-class Program
+class Application
 {
     static Dictionary<string, List<string>> LoadJson(String filename)
     {
         using (StreamReader r = new StreamReader(filename))
         {
             string json = r.ReadToEnd();
+            #nullable disable warnings
             return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(json);
+            #nullable restore warnings
         }
     }
 
