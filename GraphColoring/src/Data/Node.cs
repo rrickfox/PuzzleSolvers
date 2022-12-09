@@ -1,32 +1,36 @@
-namespace Data;
-
-public class Node
+namespace Data
 {
-    public string id { get; }
-    public ISet<Node> neighbours { get; }
-    public int degree => neighbours.Count; 
-    public int? color { get; private set; }
-
-    public Node(string id, ISet<Node> neighbours, int? color = null)
+    public class Node
     {
-        this.id = id;
-        this.neighbours = neighbours;
-        this.color = color;
-    }
+        public string id { get; }
+        public ICollection<Node> neighbours { get; }
+        public int degree => neighbours.Count; 
+        public int? color { get; private set; }
+        public Dictionary<Node, int?> distanceToOthers { get; } = new Dictionary<Node, int?>();
 
-    public bool AddNeighbour(Node neighbour)
-    {
-        return neighbours.Add(neighbour);
-    }
+        public Node(string id, ICollection<Node> neighbours, int? color = null)
+        {
+            this.id = id;
+            this.neighbours = neighbours;
+            this.color = color;
+        }
 
-    public override string ToString()
-    {
-        return "("
-            + this.id
-            + "), Color: "
-            + Convert.ToString(this.color)
-            + ", Neighbours: {"
-            + string.Join(", ", this.neighbours.Select(i => i.id))
-            + "}";
+        public void AddNeighbour(Node neighbour, int? distance = null)
+        {
+            neighbours.Add(neighbour);
+        }
+
+        public override string ToString()
+        {
+            return "("
+                + this.id
+                + "), Color: "
+                + Convert.ToString(this.color)
+                + ", Neighbours: {"
+                + string.Join(", ", this.neighbours.Select(i => i.id))
+                + "}, Distance to others: {"
+                + string.Join(", ", this.distanceToOthers.Select(i => "(" + i.Key.id + ": " + Convert.ToString(i.Value) + ")"))
+                + "}";
+        }
     }
 }

@@ -1,23 +1,28 @@
-namespace Data;
+using static Pathfinding.Pathfinding;
 
-public class Graph
+namespace Data
 {
-    public IDictionary<string, Node> nodes { get; }
-    public Graph(IEnumerable<string> nodes, Dictionary<string, List<string>> connections)
+    public class Graph
     {
-        this.nodes = new Dictionary<string, Node>();
-        foreach(string id in nodes)
+        public Dictionary<string, Node> nodes { get; }
+        public Graph(IEnumerable<string> nodes, Dictionary<string, List<string>> connections)
         {
-            this.nodes.Add(id, new Node(id, new HashSet<Node>()));
-        }
-        foreach(var n in connections)
-        {
-            foreach(var item in n.Value)
+            this.nodes = new Dictionary<string, Node>();
+            foreach(string id in nodes)
             {
-                this.nodes[n.Key].AddNeighbour(this.nodes[item]);
+                this.nodes.Add(id, new Node(id, new HashSet<Node>()));
             }
-        }
+            foreach(var n in connections)
+            {
+                foreach(var item in n.Value)
+                {
+                    this.nodes[n.Key].AddNeighbour(this.nodes[item]);
+                }
+            }
 
-        Console.WriteLine(string.Join(Environment.NewLine, this.nodes));
+            StartPathfinding(this.nodes.Values);
+
+            Console.WriteLine(string.Join(Environment.NewLine, this.nodes.Select(i => i.Key + ": " + i.Value)));
+        }
     }
 }
