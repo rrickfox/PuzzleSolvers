@@ -5,7 +5,7 @@ namespace Data
         public string id { get; }
         public ICollection<Node> neighbours { get; }
         public int degree => neighbours.Count; 
-        public int? color { get; private set; }
+        public int? color { get; set; }
         public Dictionary<Node, int?> distanceToOthers { get; } = new Dictionary<Node, int?>();
 
         public Node(string id, ICollection<Node> neighbours, int? color = null)

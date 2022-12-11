@@ -24,5 +24,10 @@ namespace Data
 
             Console.WriteLine(string.Join(Environment.NewLine, this.nodes.Select(i => i.Key + ": " + i.Value)));
         }
+
+        public Dictionary<string, int?> GetColoring()
+        {
+            return nodes.ToDictionary(n => n.Key, n => n.Value.color);
+        }
     }
 }

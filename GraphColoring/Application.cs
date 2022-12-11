@@ -1,5 +1,6 @@
-﻿using Data;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Data;
+using static Coloring.Coloring;
 
 class Application
 {
@@ -16,9 +17,13 @@ class Application
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Richard");
         Dictionary<string, List<string>> obj = LoadJson("input.json");
-        // Console.WriteLine(string.Join(Environment.NewLine, obj));
         Graph g = new Graph(obj.Keys, obj);
+        Console.WriteLine();
+        StandardColoring(g.nodes.Values);
+
+        Dictionary<string, int?> coloring = g.GetColoring();
+        Console.WriteLine(JsonConvert.SerializeObject(coloring, Formatting.Indented));
+        File.WriteAllTextAsync("output.json", JsonConvert.SerializeObject(coloring, Formatting.Indented));
     }
 }
